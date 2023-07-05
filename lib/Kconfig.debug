@@ -942,7 +942,7 @@ source "lib/Kconfig.kfence"
 
 endmenu # "Memory Debugging"
 
-menu # "Spec Profiling"
+menu "Spec Profiling"
 
 source "lib/profile/Kconfig"
 
