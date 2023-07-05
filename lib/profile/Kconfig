@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: GPL-2.0-only
+
+config SPEC_PROFILE
+  bool "Spec profile: add Spec profile support"
+  default n

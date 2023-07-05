@@ -103,6 +103,9 @@
 #ifdef CONFIG_LOCKUP_DETECTOR
 #include <linux/nmi.h>
 #endif
+#ifdef CONFIG_SPEC_PROFILE
+#include <linux/profile_enable.h>
+#endif
 
 #if defined(CONFIG_SYSCTL)
 
@@ -3348,6 +3351,18 @@ static struct ctl_table fs_table[] = {
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= SYSCTL_ONE,
 	},
+#ifdef CONFIG_SPEC_PROFILE
+	{
+		.procname	= "profile_enable",
+		.data		= &profile_enable,
+		.maxlen		= sizeof(int),
+		.mode		= 0644,
+		/* only handle a transition from default "0" to "1" */
+		.proc_handler	= proc_dointvec_minmax,
+		.extra1		= SYSCTL_ZERO,
+		.extra2		= SYSCTL_ONE,
+	},
+#endif
 	{ }
 };
 

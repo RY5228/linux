@@ -912,6 +912,16 @@ CC_FLAGS_LTO	+= -fvisibility=hidden
 
 # Limit inlining across translation units to reduce binary size
 KBUILD_LDFLAGS += -mllvm -import-instr-limit=5
+
+# instrument Spec profiling
+ifdef CONFIG_SPEC_PROFILE
+KBUILD_LDFLAGS += -mllvm=-load=${ROOT}/build/passes/SpecWindowProfiling/SpecWindowProfiling.so
+KBUILD_LDFLAGS += -mllvm="-blacklist-file=${KERNEL}/blacklist.txt"
+KBUILD_LDFLAGS += -mllvm="-fault-type=Access"
+KBUILD_LDFLAGS += -mllvm="-instr-method=rdtsc"
+KBUILD_LDFLAGS += -mllvm="-debug-config=${KERNEL}/debug.txt"
+KBUILD_LDFLAGS += -mllvm="-output-file=${KERNEL}/output.txt"
+endif
 endif
 
 ifdef CONFIG_LTO
@@ -1158,6 +1168,11 @@ else
 KBUILD_VMLINUX_LIBS := $(patsubst %/,%/lib.a, $(libs-y))
 endif
 KBUILD_VMLINUX_OBJS += $(patsubst %/,%/built-in.a, $(drivers-y))
+
+# instrument profiling
+ifdef CONFIG_PROFILE
+KBUILD_VMLINUX_OBJS += ${ROOT}/build/profile-lib/profile/libprofile.a
+endif
 
 export KBUILD_VMLINUX_OBJS KBUILD_VMLINUX_LIBS
 export KBUILD_LDS          := arch/$(SRCARCH)/kernel/vmlinux.lds
