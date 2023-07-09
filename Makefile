@@ -916,11 +916,11 @@ KBUILD_LDFLAGS += -mllvm -import-instr-limit=5
 # instrument Spec profiling
 ifdef CONFIG_SPEC_PROFILE
 KBUILD_LDFLAGS += -mllvm=-load=${ROOT}/build/passes/SpecWindowProfiling/SpecWindowProfiling.so
-KBUILD_LDFLAGS += -mllvm="-blacklist-file=${KERNEL}/blacklist.txt"
+KBUILD_LDFLAGS += -mllvm="-blacklist-file=${PROFILE_RESULTS}/out/blacklist.txt"
 KBUILD_LDFLAGS += -mllvm="-fault-type=Access"
 KBUILD_LDFLAGS += -mllvm="-instr-method=rdtsc"
-KBUILD_LDFLAGS += -mllvm="-debug-config=${KERNEL}/debug.txt"
-KBUILD_LDFLAGS += -mllvm="-output-file=${KERNEL}/output.txt"
+KBUILD_LDFLAGS += -mllvm="-debug-config=${PROFILE_RESULTS}/out/debug.txt"
+KBUILD_LDFLAGS += -mllvm="-output-file=${PROFILE_RESULTS}/out/output.txt"
 endif
 endif
 
