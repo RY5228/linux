@@ -1,18 +1,18 @@
 #ifndef PROFILE_LIBRARY_H
 #define PROFILE_LIBRARY_H
 
-#define INLINE __attribute__((__always_inline__))
+#define INLINE extern inline __attribute__((__always_inline__)) __attribute__((gnu_inline))
 #define NO_INLINE __attribute__((__noinline__))
 
-void profile_start_rdtsc(void);
-void profile_end_rdtsc(char *);
-void profile_reset_rdtsc(void);
-void profile_flush_rdtsc(void *);
+INLINE void profile_start_rdtsc(void);
+INLINE void profile_end_rdtsc(char *);
+INLINE void profile_reset_rdtsc(void);
+NO_INLINE void profile_flush_rdtsc(void *);
 
-void profile_start_jmp(void);
-void profile_end_jmp(void);
-void profile_reset_jmp(void);
-void profile_flush_jmp(void *);
+INLINE void profile_start_jmp(void);
+INLINE void profile_end_jmp(void);
+INLINE void profile_reset_jmp(void);
+NO_INLINE void profile_flush_jmp(void *);
 
 #define NOP0
 #define NOP1   NOP0; nop

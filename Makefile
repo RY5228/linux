@@ -921,6 +921,12 @@ KBUILD_LDFLAGS += -mllvm="-fault-type=Access"
 KBUILD_LDFLAGS += -mllvm="-instr-method=rdtsc"
 KBUILD_LDFLAGS += -mllvm="-debug-config=${PROFILE_RESULTS}/out/debug.txt"
 KBUILD_LDFLAGS += -mllvm="-output-file=${PROFILE_RESULTS}/out/output.txt"
+KBUILD_LDFLAGS += -mllvm="-print-function=profile_printk"
+KBUILD_LDFLAGS += -mllvm="-flush-interval=50"
+KBUILD_LDFLAGS += -mllvm="-enable-inline=false"
+endif
+ifdef CONFIG_SPEC_PROFILE_SKIP_BOOT
+KBUILD_LDFLAGS += -mllvm="-enable-param"
 endif
 endif
 
@@ -1170,7 +1176,7 @@ endif
 KBUILD_VMLINUX_OBJS += $(patsubst %/,%/built-in.a, $(drivers-y))
 
 # instrument profiling
-ifdef CONFIG_PROFILE
+ifdef CONFIG_SPEC_PROFILE
 KBUILD_VMLINUX_OBJS += ${ROOT}/build/profile-lib/profile/libprofile.a
 endif
 

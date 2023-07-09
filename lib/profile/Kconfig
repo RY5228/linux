@@ -3,3 +3,7 @@
 config SPEC_PROFILE
   bool "Spec profile: add Spec profile support"
   default n
+
+config SPEC_PROFILE_SKIP_BOOT
+  bool "Spec profile: add Spec profile support for skipping boot"
+  default n
