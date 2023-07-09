@@ -203,7 +203,7 @@ sub process_files {
 		} else {
 			# in the child process
 			STDOUT->autoflush(1);
-			find_initcalls($index, "$objtree/$file");
+			find_initcalls($index, "$file");
 			exit;
 		}
 
